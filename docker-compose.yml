@@ -1,0 +1,7 @@
+services:
+  react:
+    image: vite-react:1.0
+    build:
+      context: .
+    ports:
+      - "7775:80"
