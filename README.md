@@ -52,7 +52,7 @@ npm run dev
 
 ### 1. Get all customers
 - Method: GET
-- Endpoint: /api/v1/customer
+- Endpoint: /api/v1/customers
 - Parameters
 
   Parameter | ชนิด | คำอธิบาย
@@ -87,7 +87,7 @@ npm run dev
 
 ### 2. Get customer by ID
 - Method: GET
-- Endpoint: /api/v1/customer/${id}
+- Endpoint: /api/v1/customers/${id}
 - Parameters
 
     Parameter | ชนิด | คำอธิบาย
@@ -106,7 +106,7 @@ npm run dev
 
 ### 3. Create forum
 - Method: POST
-- Endpoint: /api/v1/customer
+- Endpoint: /api/v1/customers
 - Parameters
 
     Parameter | ชนิด | คำอธิบาย
@@ -124,7 +124,7 @@ npm run dev
 
 ### 4. Update customer
 - Method: PUT
-- Endpoint: /api/v1/customer/${id}
+- Endpoint: /api/v1/customers/${id}
 - Parameters
 
     Parameter | ชนิด | คำอธิบาย
@@ -142,7 +142,7 @@ npm run dev
 
 ### 5. Delete customer
 - Method: DELETE
-- Endpoint: /api/v1/customer/${id}
+- Endpoint: /api/v1/customers/${id}
 
 ---
 ## 📞 ติดต่อผู้พัฒนา
