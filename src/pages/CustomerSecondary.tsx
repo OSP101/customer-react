@@ -234,8 +234,61 @@ function CustomerSecondary() {
                     </Typography>
                 </Box>
 
+                <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
+                    <TextField
+                        label="Search Customer by ID"
+                        variant="outlined"
+                        fullWidth
+                        size="small"
+                        value={search}
+                        onChange={(e) => {
+                            if (/^\d*$/.test(e.target.value)) {
+                                setSearch(e.target.value);
+                                setIdError(null);
+                            }
+                        }}
+                        error={!!idError}
+                        helperText={idError}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                borderRadius: '8px',
+                                backgroundColor: 'white'
+                            }
+                        }}
+                    />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSearch}
+                        sx={{
+                            height: '40px',
+                            alignSelf: 'center',
+                            borderRadius: '8px',
+                            textTransform: 'none'
+                        }}
+                    >
+                        Search
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="success"
+                        onClick={handleAdd}
+                        sx={{
+                            height: '40px',
+                            width: '160px',
+                            alignSelf: 'center',
+                            borderRadius: '8px',
+                            textTransform: 'none',
+                            background: 'linear-gradient(45deg, #4caf50 30%, #81c784 90%)'
+                        }}
+                    >
+                        Add Customer
+                    </Button>
+                </Box>
+
                 {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
                 {success && <Alert severity="success" sx={{ mb: 2 }}>{success}</Alert>}
+
 
 
 
@@ -276,59 +329,11 @@ function CustomerSecondary() {
                     </Alert>
                 )}
 
+                
+
                 {!apiError && customers.length > 0 && (
                     <div>
-                        <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
-                            <TextField
-                                label="Search Customer by ID"
-                                variant="outlined"
-                                fullWidth
-                                size="small"
-                                value={search}
-                                onChange={(e) => {
-                                    if (/^\d*$/.test(e.target.value)) {
-                                        setSearch(e.target.value);
-                                        setIdError(null);
-                                    }
-                                }}
-                                error={!!idError}
-                                helperText={idError}
-                                sx={{
-                                    '& .MuiOutlinedInput-root': {
-                                        borderRadius: '8px',
-                                        backgroundColor: 'white'
-                                    }
-                                }}
-                            />
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleSearch}
-                                sx={{
-                                    height: '40px',
-                                    alignSelf: 'center',
-                                    borderRadius: '8px',
-                                    textTransform: 'none'
-                                }}
-                            >
-                                Search
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="success"
-                                onClick={handleAdd}
-                                sx={{
-                                    height: '40px',
-                                    width: '160px',
-                                    alignSelf: 'center',
-                                    borderRadius: '8px',
-                                    textTransform: 'none',
-                                    background: 'linear-gradient(45deg, #4caf50 30%, #81c784 90%)'
-                                }}
-                            >
-                                Add Customer
-                            </Button>
-                        </Box>
+
                         <TableContainer
                             component={Paper}
                             sx={{
