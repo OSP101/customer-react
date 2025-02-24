@@ -117,7 +117,7 @@ function CustomerPrimary() {
 
   const fetchCustomers = async () => {
     try {
-      const response = await axios.get<ApiResponse>(`${baseUrl}/api/v1/customer`);
+      const response = await axios.get<ApiResponse>(`${baseUrl}/api/v1/customersAPI`);
 
       const { isValid, errors } = validateStructure(response.data);
       if (!isValid) {
@@ -153,7 +153,7 @@ function CustomerPrimary() {
 
       setIdError(null);
       try {
-        const response = await axios.get<Customer>(`${baseUrl}/api/v1/customer/${search}`);
+        const response = await axios.get<Customer>(`${baseUrl}/api/v1/customers/${search}`);
         setCustomers([response.data]);
         setError(null);
       } catch (err) {
@@ -180,7 +180,7 @@ function CustomerPrimary() {
 
       setIsSaving(true);
       try {
-        await axios.put(`${baseUrl}/api/v1/customer/${editCustomer.customerid}`, editCustomer);
+        await axios.put(`${baseUrl}/api/v1/customers/${editCustomer.customerid}`, editCustomer);
         setSuccess('บันทึกข้อมูลสำเร็จ!');
         setEditCustomer(null);
         fetchCustomers();
@@ -202,7 +202,7 @@ function CustomerPrimary() {
 
       setIsAdding(true);
       try {
-        await axios.post(`${baseUrl}/api/v1/customer`, newCustomer);
+        await axios.post(`${baseUrl}/api/v1/customers`, newCustomer);
         setSuccess('เพิ่มข้อมูลสำเร็จ!');
         setNewCustomer(null);
         fetchCustomers();
