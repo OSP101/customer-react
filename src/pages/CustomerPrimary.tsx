@@ -27,8 +27,8 @@ const baseUrl = import.meta.env.VITE_API_URL;
 
 interface Customer {
   customerid: number;
-  firstname: string;
-  lastname: string;
+  customerfirstname: string;
+  customerlastname: string;
 }
 
 interface ApiResponse {
@@ -82,10 +82,10 @@ function CustomerPrimary() {
         if (typeof customer.customerid !== 'number') {
           errors.push(`Customer ${index + 1}: Missing or invalid "customerid" field`);
         }
-        if (typeof customer.firstname !== 'string') {
+        if (typeof customer.customerfirstname !== 'string') {
           errors.push(`Customer ${index + 1}: Missing or invalid "firstname" field`);
         }
-        if (typeof customer.lastname !== 'string') {
+        if (typeof customer.customerlastname !== 'string') {
           errors.push(`Customer ${index + 1}: Missing or invalid "lastname" field`);
         }
       });
@@ -189,7 +189,7 @@ function CustomerPrimary() {
   };
 
   const handleAdd = () => {
-    setNewCustomer({ firstname: '', lastname: '' });
+    setNewCustomer({ customerfirstname: '', customerlastname: '' });
   };
 
   const handleSaveAdd = async () => {
@@ -214,12 +214,12 @@ function CustomerPrimary() {
     let isValid = true;
     const newErrors: CustomerErrors = { firstname: '', lastname: '' };
 
-    if (!customer.firstname.trim()) {
+    if (!customer.customerfirstname.trim()) {
       newErrors.firstname = 'กรุณากรอกชื่อจริง';
       isValid = false;
     }
 
-    if (!customer.lastname.trim()) {
+    if (!customer.customerlastname.trim()) {
       newErrors.lastname = 'กรุณากรอกนามสกุล';
       isValid = false;
     }
@@ -379,8 +379,8 @@ function CustomerPrimary() {
                         sx={{ '&:nth-of-type(odd)': { bgcolor: '#fafafa' } }}
                       >
                         <TableCell>{index + 1}</TableCell>
-                        <TableCell>{customer.firstname}</TableCell>
-                        <TableCell>{customer.lastname}</TableCell>
+                        <TableCell>{customer.customerfirstname}</TableCell>
+                        <TableCell>{customer.customerlastname}</TableCell>
                         <TableCell>
                           <Button
                             variant="contained"
@@ -416,9 +416,9 @@ function CustomerPrimary() {
                 label="First Name"
                 fullWidth
                 margin="dense"
-                value={editCustomer.firstname}
+                value={editCustomer.customerfirstname}
                 onChange={(e) => {
-                  setEditCustomer({ ...editCustomer, firstname: e.target.value });
+                  setEditCustomer({ ...editCustomer, customerfirstname: e.target.value });
                   setErrors(prev => ({ ...prev, firstname: '' }));
                 }}
                 error={!!errors.firstname}
@@ -429,9 +429,9 @@ function CustomerPrimary() {
                 label="Last Name"
                 fullWidth
                 margin="dense"
-                value={editCustomer.lastname}
+                value={editCustomer.customerlastname}
                 onChange={(e) => {
-                  setEditCustomer({ ...editCustomer, lastname: e.target.value });
+                  setEditCustomer({ ...editCustomer, customerlastname: e.target.value });
                   setErrors(prev => ({ ...prev, lastname: '' }));
                 }}
                 error={!!errors.lastname}
@@ -469,9 +469,9 @@ function CustomerPrimary() {
                 margin="dense"
                 label="First Name"
                 fullWidth
-                value={newCustomer.firstname}
+                value={newCustomer.customerfirstname}
                 onChange={(e) => {
-                  setNewCustomer({ ...newCustomer, firstname: e.target.value });
+                  setNewCustomer({ ...newCustomer, customerfirstname: e.target.value });
                   setErrors(prev => ({ ...prev, firstname: '' }));
                 }}
                 error={!!errors.firstname}
@@ -482,9 +482,9 @@ function CustomerPrimary() {
                 margin="dense"
                 label="Last Name"
                 fullWidth
-                value={newCustomer.lastname}
+                value={newCustomer.customerlastname}
                 onChange={(e) => {
-                  setNewCustomer({ ...newCustomer, lastname: e.target.value });
+                  setNewCustomer({ ...newCustomer, customerlastname: e.target.value });
                   setErrors(prev => ({ ...prev, lastname: '' }));
                 }}
                 error={!!errors.lastname}
