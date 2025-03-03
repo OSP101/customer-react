@@ -98,7 +98,7 @@ function CustomerSecondary() {
 
     const fetchCustomers = async () => {
         try {
-            const response = await axios.get(`${baseUrl}/api/v1/customers`);
+            const response = await axios.get(`${baseUrl}/api/v1/customersAPI`);
 
             const { isValid, errors } = validateStructure(response.data);
             if (!isValid) {

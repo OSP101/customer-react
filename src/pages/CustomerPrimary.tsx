@@ -32,7 +32,7 @@ interface Customer {
 }
 
 interface ApiResponse {
-  data: Customer[];
+  customers: Customer[];
 }
 
 interface CustomerErrors {
@@ -41,8 +41,7 @@ interface CustomerErrors {
 }
 
 interface ApiResponse {
-  data: Customer[];
-  length: number;
+  customers: Customer[];
 }
 
 function CustomerPrimary() {
@@ -73,16 +72,13 @@ function CustomerPrimary() {
     const errors: string[] = [];
 
 
-    if (!data.data || !Array.isArray(data.data)) {
+    if (!data.customers || !Array.isArray(data.customers)) {
       errors.push('Missing or invalid "data" field');
     }
-    if (typeof data.length !== 'number') {
-      errors.push('Missing or invalid "length" field');
-    }
 
 
-    if (Array.isArray(data.data)) {
-      data.data.forEach((customer: any, index: number) => {
+    if (Array.isArray(data.customers)) {
+      data.customers.forEach((customer: any, index: number) => {
         if (typeof customer.customerid !== 'number') {
           errors.push(`Customer ${index + 1}: Missing or invalid "customerid" field`);
         }
@@ -117,7 +113,7 @@ function CustomerPrimary() {
 
   const fetchCustomers = async () => {
     try {
-      const response = await axios.get<ApiResponse>(`${baseUrl}/api/v1/customersAPI`);
+      const response = await axios.get<ApiResponse>(`${baseUrl}/api/v1/customers`);
 
       const { isValid, errors } = validateStructure(response.data);
       if (!isValid) {
@@ -129,7 +125,7 @@ function CustomerPrimary() {
 
       console.log("Result data: ", response.data);
 
-      setCustomers(response.data.data);
+      setCustomers(response.data.customers);
       setApiError(null);
       setRawResponse(null);
     } catch (err) {
@@ -295,60 +291,62 @@ function CustomerPrimary() {
             </pre>
           </Alert>
         )}
+        <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
+          <TextField
+            label="Search Customer by ID"
+            variant="outlined"
+            fullWidth
+            size="small"
+            value={search}
+            onChange={(e) => {
+              if (/^\d*$/.test(e.target.value)) {
+                setSearch(e.target.value);
+                setIdError(null);
+              }
+            }}
+            error={!!idError}
+            helperText={idError}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '8px',
+                backgroundColor: 'white'
+              }
+            }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSearch}
+            sx={{
+              height: '40px',
+              alignSelf: 'center',
+              borderRadius: '8px',
+              textTransform: 'none'
+            }}
+          >
+            Search
+          </Button>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={handleAdd}
+            sx={{
+              height: '40px',
+              width: '160px',
+              alignSelf: 'center',
+              borderRadius: '8px',
+              textTransform: 'none',
+              background: 'linear-gradient(45deg, #4caf50 30%, #81c784 90%)'
+            }}
+          >
+            Add Customer
+          </Button>
+        </Box>
 
+        
         {!apiError && customers.length > 0 && (
           <div>
-            <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
-              <TextField
-                label="Search Customer by ID"
-                variant="outlined"
-                fullWidth
-                size="small"
-                value={search}
-                onChange={(e) => {
-                  if (/^\d*$/.test(e.target.value)) {
-                    setSearch(e.target.value);
-                    setIdError(null);
-                  }
-                }}
-                error={!!idError}
-                helperText={idError}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: '8px',
-                    backgroundColor: 'white'
-                  }
-                }}
-              />
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSearch}
-                sx={{
-                  height: '40px',
-                  alignSelf: 'center',
-                  borderRadius: '8px',
-                  textTransform: 'none'
-                }}
-              >
-                Search
-              </Button>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={handleAdd}
-                sx={{
-                  height: '40px',
-                  width: '160px',
-                  alignSelf: 'center',
-                  borderRadius: '8px',
-                  textTransform: 'none',
-                  background: 'linear-gradient(45deg, #4caf50 30%, #81c784 90%)'
-                }}
-              >
-                Add Customer
-              </Button>
-            </Box>
+
             <TableContainer
               component={Paper}
               sx={{

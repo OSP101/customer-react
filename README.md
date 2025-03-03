@@ -57,8 +57,7 @@ npm run dev
 
   Parameter | ชนิด | คำอธิบาย
   ---- | ---- | ---- |
-  length | String | จำนวนลูกค้า
-  data | Array | ข้อมูลลูกค้า
+  customers | Array | ข้อมูลลูกค้า
 
     Parameter | ชนิด | คำอธิบาย
   ---- | ---- | ---- |
@@ -69,8 +68,7 @@ npm run dev
 - Body:
 ```json
 {
-  "length": 2,
-  "data": [
+  "customers": [
     {
       "customerid": 1,
       "firstname": "Apichai",
