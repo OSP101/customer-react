@@ -67,10 +67,10 @@ function CustomerSecondary() {
                 if (typeof customer.customerid !== 'number') {
                     errors.push(`Customer ${index + 1}: Missing or invalid "customerid" field`);
                 }
-                if (typeof customer.firstname !== 'string') {
+                if (typeof customer.customerfirstname !== 'string') {
                     errors.push(`Customer ${index + 1}: Missing or invalid "firstname" field`);
                 }
-                if (typeof customer.lastname !== 'string') {
+                if (typeof customer.customerlastname !== 'string') {
                     errors.push(`Customer ${index + 1}: Missing or invalid "lastname" field`);
                 }
             });
