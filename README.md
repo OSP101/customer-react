@@ -62,8 +62,7 @@ npm run dev
     Parameter | ชนิด | คำอธิบาย
   ---- | ---- | ---- |
   customerid | Int | ไอดีของลูกค้า
-  firstname | String | ชื่อลูกค้า
-  lastname | String | นามสกุลลูกค้า
+  customerfullname | String | ชื่อลูกค้า
 
 - Body:
 ```json
@@ -71,13 +70,11 @@ npm run dev
   "customers": [
     {
       "customerid": 1,
-      "firstname": "Apichai",
-      "lastname": "Tinchong"
+      "customerfullname": "Apichai Tinchong"
     },
     {
       "customerid": 2,
-      "firstname": "Jakkrit",
-      "lastname": "Kaewyotha"
+      "customerfullname": "Jakkrit Kaewyotha"
     }
   ]
 }
@@ -91,14 +88,12 @@ npm run dev
     Parameter | ชนิด | คำอธิบาย
   ---- | ---- | ---- |
   customerid | Int | ไอดีของลูกค้า
-  firstname | String | ชื่อลูกค้า
-  lastname | String | นามสกุลลูกค้า
+  customerfullname | String | ชื่อลูกค้า
 - Body:
 ```json
 {
   "customerid": 1,
-  "firstname": "Apichai",
-  "lastname": "Tinchong"
+  "customerfullname": "Apichai Tinchong"
 }
 ```
 
@@ -109,14 +104,12 @@ npm run dev
 
     Parameter | ชนิด | คำอธิบาย
   ---- | ---- | ---- |
-  firstname | String | ชื่อลูกค้า
-  lastname | String | นามสกุลลูกค้า
+  customerfullname | String | ชื่อลูกค้า
 
 - Body:
 ```json
 {
-  "firstname": "Sutthida",
-  "lastname": "Paksawad"
+  "customerfullname": "Supphitan Paksawad"
 }
 ```
 
@@ -127,14 +120,12 @@ npm run dev
 
     Parameter | ชนิด | คำอธิบาย
   ---- | ---- | ---- |
-  firstname | String | ชื่อลูกค้า
-  lastname | String | นามสกุลลูกค้า
+  customerfullname | String | ชื่อลูกค้า
 
 - Request Body:
 ```json
 {
-  "firstname": "Sutthida",
-  "lastname": "Paksawad"
+  "customerfullname": "Supphitan Paksawad"
 }
 ```
 

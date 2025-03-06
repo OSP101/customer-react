@@ -27,13 +27,11 @@ const baseUrl = import.meta.env.VITE_API_URL;
 
 interface Customer {
     customerid: number;
-    firstname: string;
-    lastname: string;
+    customerfullname: string;
 }
 
 interface CustomerErrors {
-    firstname: string;
-    lastname: string;
+    customerfullname: string;
 }
 
 
@@ -43,7 +41,7 @@ function CustomerSecondary() {
     const [editCustomer, setEditCustomer] = useState<Customer | null>(null);
     const [newCustomer, setNewCustomer] = useState<Omit<Customer, 'customerid'> | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [errors, setErrors] = useState<CustomerErrors>({ firstname: '', lastname: '' });
+    const [errors, setErrors] = useState<CustomerErrors>({ customerfullname: '' });
     const [isSaving, setIsSaving] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
     const [success, setSuccess] = useState<string | null>(null);
@@ -52,8 +50,7 @@ function CustomerSecondary() {
     const [rawResponse, setRawResponse] = useState<any>(null);
     const expectedStructure = {
         customerid: 'number',
-        firstname: 'string',
-        lastname: 'string'
+        customerfullname: 'string'
     };
 
     const validateStructure = (data: any): { isValid: boolean; errors: string[] } => {
@@ -67,11 +64,8 @@ function CustomerSecondary() {
                 if (typeof customer.customerid !== 'number') {
                     errors.push(`Customer ${index + 1}: Missing or invalid "customerid" field`);
                 }
-                if (typeof customer.firstname !== 'string') {
-                    errors.push(`Customer ${index + 1}: Missing or invalid "firstname" field`);
-                }
-                if (typeof customer.lastname !== 'string') {
-                    errors.push(`Customer ${index + 1}: Missing or invalid "lastname" field`);
+                if (typeof customer.customerfullname !== 'string') {
+                    errors.push(`Customer ${index + 1}: Missing or invalid "customerfullname" field`);
                 }
             });
         }
@@ -107,7 +101,7 @@ function CustomerSecondary() {
                 setCustomers([]);
                 return;
             }
-            console.log("Result data: ", response.data);
+            console.table(response.data);
 
             setCustomers(response.data);
             setApiError(null);
@@ -146,7 +140,7 @@ function CustomerSecondary() {
     };
 
     const handleDelete = async (id: number) => {
-        await axios.delete(`${baseUrl}/api/v1/customer/${id}`);
+        await axios.delete(`${baseUrl}/api/v1/customers/${id}`);
         fetchCustomers();
     };
 
@@ -173,7 +167,7 @@ function CustomerSecondary() {
     };
 
     const handleAdd = () => {
-        setNewCustomer({ firstname: '', lastname: '' });
+        setNewCustomer({ customerfullname: '' });
     };
 
     const handleSaveAdd = async () => {
@@ -196,15 +190,10 @@ function CustomerSecondary() {
 
     const validateForm = (customer: Omit<Customer, 'customerid'>): boolean => {
         let isValid = true;
-        const newErrors: CustomerErrors = { firstname: '', lastname: '' };
+        const newErrors: CustomerErrors = { customerfullname: '' };
 
-        if (!customer.firstname.trim()) {
-            newErrors.firstname = 'กรุณากรอกชื่อจริง';
-            isValid = false;
-        }
-
-        if (!customer.lastname.trim()) {
-            newErrors.lastname = 'กรุณากรอกนามสกุล';
+        if (!customer.customerfullname.trim()) {
+            newErrors.customerfullname = 'กรุณากรอกชื่อจริง';
             isValid = false;
         }
 
@@ -345,8 +334,7 @@ function CustomerSecondary() {
                                 <TableHead sx={{ bgcolor: '#f5f5f5' }}>
                                     <TableRow>
                                         <TableCell sx={{ fontWeight: 'bold' }}>NO</TableCell>
-                                        <TableCell sx={{ fontWeight: 'bold' }}>First Name</TableCell>
-                                        <TableCell sx={{ fontWeight: 'bold' }}>Last Name</TableCell>
+                                        <TableCell sx={{ fontWeight: 'bold' }}>Full Name</TableCell>
                                         <TableCell sx={{ fontWeight: 'bold' }}>Actions</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -366,8 +354,7 @@ function CustomerSecondary() {
                                                 sx={{ '&:nth-of-type(odd)': { bgcolor: '#fafafa' } }}
                                             >
                                                 <TableCell>{index + 1}</TableCell>
-                                                <TableCell>{customer.firstname}</TableCell>
-                                                <TableCell>{customer.lastname}</TableCell>
+                                                <TableCell>{customer.customerfullname}</TableCell>
                                                 <TableCell>
                                                     <Button
                                                         variant="contained"
@@ -400,31 +387,19 @@ function CustomerSecondary() {
                         <DialogTitle>Edit Customer</DialogTitle>
                         <DialogContent>
                             <TextField
-                                label="First Name"
+                                label="Full Name"
                                 fullWidth
                                 margin="dense"
-                                value={editCustomer.firstname}
+                                value={editCustomer.customerfullname}
                                 onChange={(e) => {
-                                    setEditCustomer({ ...editCustomer, firstname: e.target.value });
-                                    setErrors(prev => ({ ...prev, firstname: '' }));
+                                    setEditCustomer({ ...editCustomer, customerfullname: e.target.value });
+                                    setErrors(prev => ({ ...prev, customerfullname: '' }));
                                 }}
-                                error={!!errors.firstname}
-                                helperText={errors.firstname}
+                                error={!!errors.customerfullname}
+                                helperText={errors.customerfullname}
                                 sx={{ mt: 2 }}
                             />
-                            <TextField
-                                label="Last Name"
-                                fullWidth
-                                margin="dense"
-                                value={editCustomer.lastname}
-                                onChange={(e) => {
-                                    setEditCustomer({ ...editCustomer, lastname: e.target.value });
-                                    setErrors(prev => ({ ...prev, lastname: '' }));
-                                }}
-                                error={!!errors.lastname}
-                                helperText={errors.lastname}
-                                sx={{ mt: 2 }}
-                            />
+                            
                         </DialogContent>
                         <DialogActions>
                             <Button
@@ -454,30 +429,18 @@ function CustomerSecondary() {
                             <TextField
                                 autoFocus
                                 margin="dense"
-                                label="First Name"
+                                label="Full Name"
                                 fullWidth
-                                value={newCustomer.firstname}
+                                value={newCustomer.customerfullname}
                                 onChange={(e) => {
-                                    setNewCustomer({ ...newCustomer, firstname: e.target.value });
-                                    setErrors(prev => ({ ...prev, firstname: '' }));
+                                    setNewCustomer({ ...newCustomer, customerfullname: e.target.value });
+                                    setErrors(prev => ({ ...prev, customerfullname: '' }));
                                 }}
-                                error={!!errors.firstname}
-                                helperText={errors.firstname}
+                                error={!!errors.customerfullname}
+                                helperText={errors.customerfullname}
                                 sx={{ mt: 2 }}
                             />
-                            <TextField
-                                margin="dense"
-                                label="Last Name"
-                                fullWidth
-                                value={newCustomer.lastname}
-                                onChange={(e) => {
-                                    setNewCustomer({ ...newCustomer, lastname: e.target.value });
-                                    setErrors(prev => ({ ...prev, lastname: '' }));
-                                }}
-                                error={!!errors.lastname}
-                                helperText={errors.lastname}
-                                sx={{ mt: 2 }}
-                            />
+                            
                         </DialogContent>
                         <DialogActions>
                             <Button

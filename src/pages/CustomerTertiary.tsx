@@ -31,7 +31,7 @@ interface Customer {
 }
 
 interface ApiResponse {
-  customers: Customer[];
+  customer: Customer[];
 }
 
 interface CustomerErrors {
@@ -39,7 +39,7 @@ interface CustomerErrors {
 }
 
 interface ApiResponse {
-  customers: Customer[];
+  customer: Customer[];
 }
 
 function CustomerPrimary() {
@@ -56,7 +56,7 @@ function CustomerPrimary() {
   const [apiError, setApiError] = useState<string | null>(null);
   const [rawResponse, setRawResponse] = useState<any>(null);
   const expectedStructure = {
-    customers: [
+    customer: [
       {
         customerid: 'number',
         customerfullname: 'string'
@@ -68,17 +68,17 @@ function CustomerPrimary() {
     const errors: string[] = [];
 
 
-    if (!data.customers || !Array.isArray(data.customers)) {
-      errors.push('Missing or invalid "data" field');
+    if (!data.customer || !Array.isArray(data.customer)) {
+      errors.push('Missing or invalid "customer" field');
     }
 
 
-    if (Array.isArray(data.customers)) {
-      data.customers.forEach((customer: any, index: number) => {
-        if (typeof customer.customerid !== 'number') {
+    if (Array.isArray(data.customer)) {
+      data.customer.forEach((custome: any, index: number) => {
+        if (typeof custome.customerid !== 'number') {
           errors.push(`Customer ${index + 1}: Missing or invalid "customerid" field`);
         }
-        if (typeof customer.customerfullname !== 'string') {
+        if (typeof custome.customerfullname !== 'string') {
           errors.push(`Customer ${index + 1}: Missing or invalid "customerfullname" field`);
         }
       });
@@ -116,9 +116,9 @@ function CustomerPrimary() {
         return;
       }
 
-      console.table(response.data.customers);
+      console.log("Result data: ", response.data);
 
-      setCustomers(response.data.customers);
+      setCustomers(response.data.customer);
       setApiError(null);
       setRawResponse(null);
     } catch (err) {
